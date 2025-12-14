@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 My Storage Scanner v2.0 - Optimalkan Penyimpanan Komputer Anda</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Additional CSS for enhanced UI */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --danger-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background: transparent;
+            box-shadow: none;
+        }
+        
+        /* Header Styles */
+        .main-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1%, transparent 1%);
+            background-size: 50px 50px;
+        }
+        
+        .main-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            border-top: 5px solid #667eea;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .feature-card:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #667eea;
+            display: inline-block;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 50%;
+        }
+        
+        /* Button Enhancements */
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary-gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+        }
+        
+        .btn-success {
+            background: var(--success-gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+        }
+        
+        .btn-danger {
+            background: var(--danger-gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+        }
+        
+        /* Action Buttons Container */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        /* Stats Panel */
+        .stats-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .section-icon {
+            font-size: 2rem;
+            color: #667eea;
+        }
+        
+        /* Input Enhancements */
+        input[type="text"], 
+        input[type="number"], 
+        input[type="file"] {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+        
+        input[type="text"]:focus, 
+        input[type="number"]:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+        
+        /* Custom Checkbox & Radio */
+        .checkbox-modern {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            min-height: 24px;
+        }
+        
+        .checkbox-modern input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: #eee;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        
+        .checkbox-modern:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+        
+        .checkbox-modern input:checked ~ .checkmark {
+            background: var(--primary-gradient);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .checkbox-modern input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-modern .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        
+        /* Guide Sections */
+        .guide-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            border-left: 5px solid #667eea;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: var(--primary-gradient);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animation for page transitions */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Enhanced Header -->
+        <header class="main-header">
+            <h1><i class="fas fa-hdd"></i> My Storage Scanner v2.0</h1>
+            <p class="tagline">Optimalkan Penyimpanan Komputer dengan Deteksi File Duplikat</p>
+            
+            <!-- Stats Panel -->
+            <div class="stats-panel">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div>Dukungan Drive</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div>Kategori File</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div>Aman Digunakan</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div>Monitoring</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Home Page -->
+        <div id="homePage" class="fade-in">
+            <div class="section-header">
+                <i class="fas fa-rocket section-icon"></i>
+                <h2>Aksi Cepat</h2>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="showScanner()">
+                    <i class="fas fa-bolt"></i> Scan Cepat (Drive C:)
+                </button>
+                <button class="btn btn-success" onclick="showDriveSelection()">
+                    <i class="fas fa-sliders-h"></i> Scan Kustom (Multi-Drive)
+                </button>
+                <button class="btn btn-secondary" onclick="showDuplicateFinder()">
+                    <i class="fas fa-copy"></i> Pencari File Duplikat
+                </button>
+                <button class="btn" onclick="showTutorial()">
+                    <i class="fas fa-book"></i> Panduan Pengguna
+                </button>
+            </div>
+
+            <div class="section-header">
+                <i class="fas fa-star section-icon"></i>
+                <h2>Fitur Utama</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <h3>Pencari Duplikat</h3>
+                    <p>Temukan dan hapus file duplikat menggunakan verifikasi hash MD5. Hemat ruang dengan menghilangkan file berulang.</p>
+                    <button class="btn" onclick="showDuplicateFinder()" style="margin-top: 15px;">
+                        Coba Sekarang <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analitik Penyimpanan</h3>
+                    <p>Visualisasikan penggunaan penyimpanan dengan chart interaktif dan analisis pertumbuhan (ds/dt).</p>
+                    <button class="btn" onclick="showScanner()" style="margin-top: 15px;">
+                        Lihat Analitik <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Pembersihan Aman</h3>
+                    <p>Proses verifikasi multi-langkah dengan logging lengkap. Tidak akan kehilangan file penting secara tidak sengaja.</p>
+                    <button class="btn" onclick="showTutorial()" style="margin-top: 15px;">
+                        Pelajari Lebih <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="feature-card">
+    <div class="feature-icon">
+        <i class="fas fa-calculator"></i>
+    </div>
+    <h3>Analisis ds/dt (Turunan)</h3>
+    <p><strong>Konsep matematika turunan diterapkan dalam analisis penyimpanan:</strong></p>
+    
+ 
+  
+   <button class="btn" onclick="showDerivativeAnalysis()" style="margin-top: 15px;">
+    <i class="fas fa-book"></i> Pelajari Selengkapnya
+</button>
+</div>
+            </div>
+        </div>
+
+        <!-- Tutorial Page -->
+        <div id="tutorial" class="hidden fade-in">
+            <div class="section-header">
+                <i class="fas fa-graduation-cap section-icon"></i>
+                <h2>Panduan Lengkap Pengguna</h2>
+            </div>
+            
+            <!-- Panduan 3 Langkah Mudah -->
+            <div class="guide-section">
+                <h3><i class="fas fa-road"></i> 3 LANGKAH MUDAH MENGGUNAKAN PROGRAM</h3>
+                
+                <div class="guide-section" style="background: #f0f7ff;">
+                    <h4><span class="step-number">1</span> BUKA PROGRAM</h4>
+                    <ul>
+                        <li><strong>Buka file</strong> <code>index.html</code> di browser</li>
+                        <li><strong>Pilih salah satu mode:</strong>
+                            <br>🔍 <strong>Scan Cepat</strong> - Untuk drive C: saja
+                            <br>⚙️ <strong>Scan Kustom</strong> - Pilih drive sendiri
+                            <br>📁 <strong>Pencari Duplikat</strong> - Khusus cari file duplikat
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="guide-section" style="background: #fff0f7;">
+                    <h4><span class="step-number">2</span> SCAN KOMPUTER ANDA</h4>
+                    <ul>
+                        <li><strong>Download scanner.exe</strong> (klik tombol di website)</li>
+                        <li><strong>Download scan_config.json</strong> (hasil dari Langkah 1)</li>
+                        <li><strong>Taruh kedua file di folder yang sama</strong></li>
+                        <li><strong>Jalankan scanner.exe</strong> (double-click)</li>
+                        <li><strong>Tunggu sampai selesai</strong> (lihat Command Prompt)</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-section" style="background: #f0fff7;">
+                    <h4><span class="step-number">3</span> BERSIHKAN FILE</h4>
+                    <ul>
+                        <li><strong>Upload scan_result.json</strong> ke website</li>
+                        <li><strong>Pilih file</strong> yang mau dihapus (centang checkbox)</li>
+                        <li><strong>Download cleaner.exe</strong></li>
+                        <li><strong>Jalankan cleaner.exe</strong> untuk menghapus file</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Detail Mode -->
+            <div class="guide-section">
+                <h3><i class="fas fa-cogs"></i> DETAIL SETIAP MODE</h3>
+                
+                <div class="guide-section">
+                    <h4><i class="fas fa-bolt"></i> A. MODE CEPAT (Quick Scan)</h4>
+                    <p>Untuk pemula yang ingin scan drive C: saja</p>
+                    <ol>
+                        <li>Klik <strong>"Scan Cepat (Drive C:)"</strong></li>
+                        <li>Langsung ke Langkah 2 di atas</li>
+                    </ol>
+                </div>
+                
+                <div class="guide-section">
+                    <h4><i class="fas fa-sliders-h"></i> B. MODE KUSTOM (Pilih Drive Sendiri)</h4>
+                    <p>Untuk scan beberapa drive dengan konfigurasi khusus</p>
+                    <ol>
+                        <li>Klik <strong>"Scan Kustom (Multi-Drive)"</strong></li>
+                        <li><strong>Pilih drives</strong> yang ingin discan</li>
+                        <li><strong>(Opsional)</strong> Tambah folder custom</li>
+                        <li><strong>Atur pengaturan scan</strong></li>
+                        <li>Klik <strong>"Generate & Download Config"</strong></li>
+                        <li>Lanjut ke Langkah 2</li>
+                    </ol>
+                </div>
+                
+                <div class="guide-section">
+                    <h4><i class="fas fa-copy"></i> C. MODE CARI DUPLIKAT</h4>
+                    <p>Khusus mencari file duplikat</p>
+                    <ol>
+                        <li>Klik <strong>"Pencari File Duplikat"</strong></li>
+                        <li><strong>Pilih drives</strong> (minimal 1)</li>
+                        <li><strong>Pilih jenis file:</strong> gambar, video, dokumen, dll</li>
+                        <li><strong>Atur ukuran minimum:</strong> 100 KB</li>
+                        <li>Klik <strong>"Mulai Scan Duplikat"</strong></li>
+                        <li>Lanjut ke Langkah 2</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Tips & Peringatan -->
+            <div class="guide-section">
+                <h3><i class="fas fa-lightbulb"></i> TIPS & PERINGATAN</h3>
+                
+                <div class="guide-section" style="background: #fff8f0;">
+                    <h4><i class="fas fa-exclamation-triangle"></i> PERINGATAN PENTING</h4>
+                    <ul>
+                        <li><strong>Jangan hapus file system</strong> (windows, program files)</li>
+                        <li><strong>Backup data penting</strong> sebelum menghapus</li>
+                        <li><strong>Review dulu</strong> sebelum klik delete</li>
+                        <li><strong>Cleaner hanya hapus</strong> file yang dipilih di website</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-section" style="background: #f0fff8;">
+                    <h4><i class="fas fa-magic"></i> TIPS CEPAT</h4>
+                    <ul>
+                        <li><strong>File besar (>100MB)</strong> → Centang untuk hapus jika tidak penting</li>
+                        <li><strong>File duplikat</strong> → Gunakan "Smart Select" untuk otomatis pilih</li>
+                        <li><strong>File .tmp & .log</strong> → Aman untuk dihapus (temporary files)</li>
+                        <li><strong>Drive penuh</strong> → Scan semua drive untuk cari file besar</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Troubleshooting -->
+            <div class="guide-section">
+                <h3><i class="fas fa-wrench"></i> PEMECAHAN MASALAH</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background: #f5f5f5;">
+                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Masalah</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Solusi</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Scanner.exe error</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Pastikan scan_config.json ada di folder sama</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 10px; border: 1px solid #ddd;">File tidak terhapus</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Cek permission, tutup program yang pakai file</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Website tidak load</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Buka di Chrome/Firefox, pastikan semua file ada</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 10px; border: 1px solid #ddd;">Hasil scan kosong</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">Cek drive yang dipilih ada isinya</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="action-buttons" style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="showHome()">
+                    <i class="fas fa-home"></i> Kembali ke Beranda
+                </button>
+                <button class="btn" onclick="showScanner()">
+                    <i class="fas fa-play"></i> Coba Sekarang
+                </button>
+            </div>
+        </div>
+
+        <!-- Drive Selection Page -->
+        <div id="driveSelection" class="hidden fade-in">
+            <div class="section-header">
+                <i class="fas fa-sliders-h section-icon"></i>
+                <h2>Konfigurasi Scan Kustom</h2>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-hdd" style="color: #667eea;"></i> Pilih Drive untuk di-Scan</h3>
+                <div id="driveCheckboxes">
+                    <p>Memuat drive yang tersedia...</p>
+                </div>
+                <p style="margin-top: 15px; color: #666;"><i class="fas fa-info-circle"></i> Scanner akan mendeteksi drive yang tersedia secara otomatis</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-folder-plus" style="color: #667eea;"></i> Folder Kustom (Opsional)</h3>
+                <div style="display: flex; gap: 10px; margin: 20px 0;">
+                    <input type="text" id="customFolder" placeholder="Contoh: D:\Project atau C:\Users\Nama\Desktop" style="flex: 1;">
+                    <button class="btn btn-success" onclick="addCustomFolder()">
+                        <i class="fas fa-plus"></i> Tambah
+                    </button>
+                </div>
+                <div id="customFoldersList">Belum ada folder kustom ditambahkan</div>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-cogs" style="color: #667eea;"></i> Pengaturan Scan</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 20px;">
+                    <div>
+                        <h4><i class="fas fa-search"></i> Area Scan</h4>
+                        <label class="checkbox-modern">
+                            <input type="checkbox" id="scanDownloads" checked>
+                            <span class="checkmark"></span>
+                            Scan folder Downloads
+                        </label><br>
+                        <label class="checkbox-modern">
+                            <input type="checkbox" id="scanDocuments" checked>
+                            <span class="checkmark"></span>
+                            Scan folder Documents
+                        </label><br>
+                        <label class="checkbox-modern">
+                            <input type="checkbox" id="scanRoot">
+                            <span class="checkmark"></span>
+                            Scan seluruh drive
+                        </label>
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-copy"></i> Deteksi Duplikat</h4>
+                        <label class="checkbox-modern">
+                            <input type="checkbox" id="findDuplicates" checked>
+                            <span class="checkmark"></span>
+                            Cari file duplikat
+                        </label><br>
+                        <label style="margin-top: 15px; display: block;">
+                            <i class="fas fa-expand-arrows-alt"></i> Ukuran file minimum: 
+                            <input type="number" id="thresholdMB" value="100" min="1" max="10000" style="width: 100px; padding: 10px; margin-left: 10px;"> KB
+                        </label>
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-trash-alt"></i> File Sampah</h4>
+                        <label class="checkbox-modern">
+                            <input type="checkbox" id="scanTemp" checked>
+                            <span class="checkmark"></span>
+                            File temporary (.tmp)
+                        </label><br>
+                        <label class="checkbox-modern">
+                            <input type="checkbox" id="scanLogs" checked>
+                            <span class="checkmark"></span>
+                            File log (.log)
+                        </label><br>
+                        <label style="margin-top: 15px; display: block;">
+                            <i class="fas fa-weight-hanging"></i> Batas file besar: 
+                            <input type="number" id="thresholdMB2" value="100" min="10" max="1000" style="width: 100px; padding: 10px; margin-left: 10px;"> MB
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="generateConfigAndDownload()">
+                    <i class="fas fa-download"></i> Generate & Download Config
+                </button>
+                <button class="btn" onclick="showHome()">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </button>
+            </div>
+        </div>
+
+        <!-- Duplicate Finder Page -->
+        <div id="duplicateFinder" class="hidden fade-in">
+            <div class="section-header">
+                <i class="fas fa-copy section-icon"></i>
+                <h2>Pencari File Duplikat</h2>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-hdd" style="color: #667eea;"></i> 1. Pilih Drive untuk di-Scan</h3>
+                <div id="dupDriveCheckboxes" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <label class="checkbox-modern" style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px;">
+                        <input type="checkbox" id="dup_drive_C" value="C:" checked>
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <strong style="font-size: 1.2rem;">C:</strong><br>
+                            <small>System Drive</small>
+                        </div>
+                    </label>
+                    
+                    <label class="checkbox-modern" style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px;">
+                        <input type="checkbox" id="dup_drive_D" value="D:">
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <strong style="font-size: 1.2rem;">D:</strong><br>
+                            <small>Data Drive</small>
+                        </div>
+                    </label>
+                    
+                    <label class="checkbox-modern" style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px;">
+                        <input type="checkbox" id="dup_drive_E" value="E:">
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <strong style="font-size: 1.2rem;">E:</strong><br>
+                            <small>Extra Drive</small>
+                        </div>
+                    </label>
+                    
+                    <label class="checkbox-modern" style="background: rgba(102, 126, 234, 0.05); padding: 20px; border-radius: 15px;">
+                        <input type="checkbox" id="dup_drive_F" value="F:">
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <strong style="font-size: 1.2rem;">F:</strong><br>
+                            <small>External Drive</small>
+                        </div>
+                    </label>
+                </div>
+                <p style="color: #666; margin-top: 10px;">
+                    <i class="fas fa-check-circle"></i> Pilih minimal 1 drive. Scanner akan mendeteksi drive yang tersedia.
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-file-alt" style="color: #667eea;"></i> 2. Jenis File yang Dicek</h3>
+                <div class="file-type-grid" style="margin: 20px 0;">
+                    <label class="checkbox-modern" style="background: rgba(79, 172, 254, 0.05); padding: 15px; border-radius: 10px;">
+                        <input type="checkbox" class="dup-file-type" value="image" checked>
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <i class="fas fa-image" style="color: #4facfe;"></i> Gambar (.jpg, .png, .gif)
+                        </div>
+                    </label>
+                    <label class="checkbox-modern" style="background: rgba(79, 172, 254, 0.05); padding: 15px; border-radius: 10px;">
+                        <input type="checkbox" class="dup-file-type" value="document" checked>
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <i class="fas fa-file-pdf" style="color: #4facfe;"></i> Dokumen (.pdf, .docx)
+                        </div>
+                    </label>
+                    <label class="checkbox-modern" style="background: rgba(79, 172, 254, 0.05); padding: 15px; border-radius: 10px;">
+                        <input type="checkbox" class="dup-file-type" value="video" checked>
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <i class="fas fa-video" style="color: #4facfe;"></i> Video (.mp4, .avi, .mov)
+                        </div>
+                    </label>
+                    <label class="checkbox-modern" style="background: rgba(79, 172, 254, 0.05); padding: 15px; border-radius: 10px;">
+                        <input type="checkbox" class="dup-file-type" value="audio" checked>
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <i class="fas fa-music" style="color: #4facfe;"></i> Audio (.mp3, .wav)
+                        </div>
+                    </label>
+                    <label class="checkbox-modern" style="background: rgba(79, 172, 254, 0.05); padding: 15px; border-radius: 10px;">
+                        <input type="checkbox" class="dup-file-type" value="archive" checked>
+                        <span class="checkmark"></span>
+                        <div style="margin-left: 40px;">
+                            <i class="fas fa-file-archive" style="color: #4facfe;"></i> Arsip (.zip, .rar, .7z)
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-cogs" style="color: #667eea;"></i> 3. Opsi Scan</h3>
+                <label style="display: flex; align-items: center; gap: 15px; margin: 20px 0;">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                    <span style="min-width: 150px;">Ukuran file minimum:</span>
+                    <input type="number" id="minDuplicateSize" value="100" min="1" max="10000" style="flex: 1; max-width: 200px; padding: 12px;"> KB
+                </label>
+                <p style="color: #666;">
+                    <i class="fas fa-info-circle"></i> File lebih kecil dari ini akan dilewati untuk scanning lebih cepat
+                </p>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="startDuplicateScan()" style="padding: 20px 40px; font-size: 1.2rem;">
+                    <i class="fas fa-rocket"></i> Mulai Scan Duplikat
+                </button>
+                <button class="btn" onclick="showHome()">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </button>
+            </div>
+            
+            <div id="duplicateResults" class="result" style="margin-top: 30px;"></div>
+        </div>
+
+        <!-- Scanner Page -->
+        <div id="scanner" class="hidden fade-in">
+            <div style="margin-bottom: 30px;">
+                <button class="btn" onclick="showHome()">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </button>
+            </div>
+            
+            <div class="section-header">
+                <i class="fas fa-search section-icon"></i>
+                <h2>Scanner & Analisis Penyimpanan</h2>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-download" style="color: #667eea;"></i> Langkah 1: Download Tools</h3>
+                <p>Download tools yang diperlukan untuk scan dan bersihkan penyimpanan:</p>
+                <div class="action-buttons" style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="downloadScanner()">
+                        <i class="fas fa-download"></i> Download Scanner.exe
+                    </button>
+                    <button class="btn btn-danger" onclick="downloadCleaner()">
+                        <i class="fas fa-download"></i> Download Cleaner.exe
+                    </button>
+                </div>
+                <p style="margin-top: 15px; color: #666;">
+                    <i class="fas fa-info-circle"></i> Scanner untuk scanning, Cleaner untuk penghapusan
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-upload" style="color: #667eea;"></i> Langkah 2: Upload Hasil Scan</h3>
+                <p>Setelah menjalankan scanner.exe, upload hasil untuk dianalisis:</p>
+                <div style="margin: 20px 0;">
+                    <input type="file" id="jsonFile" accept=".json" 
+                           style="padding: 20px; border: 3px dashed #667eea; width: 100%; border-radius: 15px; background: rgba(102, 126, 234, 0.05);">
+                </div>
+                <button class="btn btn-primary" onclick="loadScanResult()" style="width: 100%; padding: 15px;">
+                    <i class="fas fa-chart-bar"></i> Tampilkan Hasil Scan
+                </button>
+            </div>
+            
+            <div id="result" class="result"></div>
+            
+            <div class="feature-card">
+                <h3><i class="fas fa-chart-line" style="color: #667eea;"></i> Analitik Penyimpanan</h3>
+                <canvas id="lineChart" width="400" height="200"></canvas>
+            </div>
+            
+            <div id="dsdtBox"></div>
+            
+            <button id="cleanBtn" class="btn btn-danger" style="display:none; margin-top: 30px; width: 100%; padding: 20px; font-size: 1.2rem;" onclick="runCleaner()">
+                <i class="fas fa-trash-alt"></i> Hapus File Terpilih
+            </button>
+        </div>
+
+<!-- Halaman Analisis Turunan -->
+<div id="derivativeAnalysis" class="hidden fade-in">
+    <div style="margin-bottom: 30px;">
+        <button class="btn" onclick="showHome()">
+            <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        </button>
+    </div>
+    
+    <div class="section-header">
+        <i class="fas fa-calculator section-icon"></i>
+        <h2>Analisis Turunan (ds/dt) - Matematika dalam Manajemen Storage</h2>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="feature-card" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border: none;">
+        <div style="text-align: center; padding: 30px;">
+            <div class="feature-icon" style="background: rgba(156, 39, 176, 0.2); margin-bottom: 20px;">
+                <i class="fas fa-calculator" style="color: #7b1fa2; font-size: 3.5rem;"></i>
+            </div>
+            <h1 style="color: #4a148c; margin-bottom: 10px;">ds/dt = Δ Penyimpanan ÷ Δ Waktu</h1>
+            <p style="font-size: 1.2rem; color: #6a1b9a;">
+                Konsep matematika turunan yang diaplikasikan untuk analisis penyimpanan komputer
+            </p>
+        </div>
+    </div>
+    
+    <!-- Penjelasan Konsep -->
+    <div class="feature-card">
+        <h3><i class="fas fa-lightbulb" style="color: #ff9800;"></i> Apa Itu ds/dt?</h3>
+        <p><strong>ds/dt</strong> adalah <strong>turunan pertama</strong> dari fungsi penyimpanan terhadap waktu. Dalam konteks program ini:</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 25px 0;">
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 4px solid #4caf50;">
+                <h4><i class="fas fa-database"></i> s (Storage)</h4>
+                <p>Total data yang tersimpan di komputer (bytes, MB, GB)</p>
+                <small>Variabel dependen yang diukur</small>
+            </div>
+            
+            <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 4px solid #2196f3;">
+                <h4><i class="fas fa-clock"></i> t (Time)</h4>
+                <p>Waktu pengukuran (detik, menit, hari)</p>
+                <small>Variabel independen</small>
+            </div>
+            
+            <div style="background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                <h4><i class="fas fa-chart-line"></i> ds/dt</h4>
+                <p>Laju perubahan storage per satuan waktu</p>
+                <small>Turunan pertama s terhadap t</small>
+            </div>
+        </div>
+        
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; margin: 20px 0; border: 1px solid #e0e0e0;">
+            <h4><i class="fas fa-calculator"></i> Rumus Matematis:</h4>
+            <div style="text-align: center; padding: 15px; background: white; border-radius: 8px; margin: 15px 0;">
+                <p style="font-size: 1.5rem; font-family: 'Courier New', monospace; color: #d32f2f;">
+                    ds/dt = lim<sub style="font-size: 0.8rem;">Δt→0</sub> [s(t+Δt) - s(t)] / Δt
+                </p>
+                <p style="color: #666; margin-top: 10px;">Dalam praktik: <strong>Δs/Δt</strong> antara dua scan</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Interpretasi Hasil -->
+    <div class="feature-card">
+        <h3><i class="fas fa-chart-bar" style="color: #2196f3;"></i> Interpretasi Hasil ds/dt</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
+            <div style="background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%); padding: 20px; border-radius: 10px; text-align: center;">
+                <h4 style="color: #c62828;">ds/dt > 0</h4>
+                <p><strong>Penyimpanan Bertambah</strong></p>
+                <small>Ada data baru masuk</small>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%); padding: 20px; border-radius: 10px; text-align: center;">
+                <h4 style="color: #2e7d32;">ds/dt < 0</h4>
+                <p><strong>Penyimpanan Berkurang</strong></p>
+                <small>Data berhasil dibersihkan</small>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%); padding: 20px; border-radius: 10px; text-align: center;">
+                <h4 style="color: #ef6c00;">ds/dt = 0</h4>
+                <p><strong>Stabil</strong></p>
+                <small>Tidak ada perubahan signifikan</small>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #e1bee7 0%, #ce93d8 100%); padding: 20px; border-radius: 10px; text-align: center;">
+                <h4 style="color: #7b1fa2;">|ds/dt| besar</h4>
+                <p><strong>Perubahan Cepat</strong></p>
+                <small>Perlu investigasi</small>
+            </div>
+        </div>
+        
+        <div style="background: #e8f4f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+            <h4><i class="fas fa-exclamation-triangle" style="color: #ff5722;"></i> Contoh Kasus Nyata:</h4>
+            <div style="display: flex; align-items: center; gap: 20px; margin-top: 15px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <p><strong>Jika ds/dt = +5 MB/detik:</strong></p>
+                    <ul>
+                        <li>Storage bertambah 300 MB/menit</li>
+                        <li>18 GB/jam</li>
+                        <li>432 GB/hari</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <p><strong>Tindakan yang diperlukan:</strong></p>
+                    <ul>
+                        <li>Cek program yang sedang berjalan</li>
+                        <li>Monitor download/upload</li>
+                        <li>Cek log aplikasi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Aplikasi dalam Program -->
+    <div class="feature-card">
+        <h3><i class="fas fa-laptop-code" style="color: #9c27b0;"></i> Implementasi dalam My Storage Scanner</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 25px 0;">
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">
+                <h4><i class="fas fa-history"></i> 1. Data Historis</h4>
+                <p>Program menyimpan history scan untuk menghitung Δs dan Δt</p>
+            </div>
+            
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">
+                <h4><i class="fas fa-calculator"></i> 2. Perhitungan</h4>
+                <p>Menghitung selisih storage (Δs) dan waktu (Δt) antara dua scan</p>
+            </div>
+            
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">
+                <h4><i class="fas fa-chart-line"></i> 3. Visualisasi</h4>
+                <p>Menampilkan grafik dan nilai ds/dt untuk analisis</p>
+            </div>
+        </div>
+        
+        <div style="background: #fff8e1; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ffa000;">
+            <h4><i class="fas fa-code"></i> Contoh Perhitungan dalam Program:</h4>
+            <div style="background: #263238; color: #fff; padding: 15px; border-radius: 8px; margin: 15px 0; font-family: 'Courier New', monospace;">
+                <p>// Data dari dua scan terakhir</p>
+                <p>s₁ = 500 GB (scan pertama)</p>
+                <p>s₂ = 520 GB (scan kedua)</p>
+                <p>t₁ = 0 detik</p>
+                <p>t₂ = 86400 detik (1 hari)</p>
+                <p style="margin-top: 10px; color: #4fc3f7;">Δs = s₂ - s₁ = 20 GB = 20 × 10⁹ bytes</p>
+                <p>Δt = t₂ - t₁ = 86400 detik</p>
+                <p style="margin-top: 10px; color: #69f0ae;">ds/dt = Δs / Δt = 20 × 10⁹ / 86400</p>
+                <p style="color: #ffd54f;">≈ 231,481 bytes/detik ≈ 0.22 MB/detik</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Manfaat & Aplikasi -->
+    <div class="feature-card">
+        <h3><i class="fas fa-bullseye" style="color: #4caf50;"></i> Manfaat Analisis Turunan untuk Anda</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0;">
+            <div style="text-align: center; padding: 15px;">
+                <div style="background: #e3f2fd; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-bell" style="color: #2196f3; font-size: 1.5rem;"></i>
+                </div>
+                <h5>Deteksi Dini</h5>
+                <p>Ketahui sebelum storage penuh</p>
+            </div>
+            
+            <div style="text-align: center; padding: 15px;">
+                <div style="background: #f3e5f5; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-chart-line" style="color: #9c27b0; font-size: 1.5rem;"></i>
+                </div>
+                <h5>Analisis Tren</h5>
+                <p>Pahami pola penggunaan storage</p>
+            </div>
+            
+            <div style="text-align: center; padding: 15px;">
+                <div style="background: #e8f5e9; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-check-circle" style="color: #4caf50; font-size: 1.5rem;"></i>
+                </div>
+                <h5>Evaluasi</h5>
+                <p>Ukur efektivitas pembersihan</p>
+            </div>
+            
+            <div style="text-align: center; padding: 15px;">
+                <div style="background: #fff3e0; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-crystal-ball" style="color: #ff9800; font-size: 1.5rem;"></i>
+                </div>
+                <h5>Prediksi</h5>
+                <p>Estimasi waktu hingga storage penuh</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="feature-card" style="text-align: center; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
+        <h3><i class="fas fa-rocket" style="color: #2196f3;"></i> Siap Menerapkan Konsep Turunan?</h3>
+        <p style="font-size: 1.1rem; margin: 20px 0;">Coba fitur analisis ds/dt dalam program kami dan lihat bagaimana matematika membantu mengelola storage Anda!</p>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="showScanner()" style="padding: 15px 30px;">
+                <i class="fas fa-play"></i> Coba Analisis ds/dt Sekarang
+            </button>
+            <button class="btn" onclick="showHome()">
+                <i class="fas fa-home"></i> Kembali ke Beranda
+            </button>
+        </div>
+        
+        <p style="margin-top: 20px; color: #666; font-style: italic;">
+            "Matematika bukan hanya teori - ds/dt adalah alat praktis untuk manajemen storage yang cerdas"
+        </p>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px;">
+    <a href="index.html" style="
+        display: inline-block;
+        padding: 12px 25px;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        border: 1px solid rgba(255,255,255,0.2);
+    ">
+        <i class="fas fa-home"></i> Kembali ke Halaman Utama
+    </a>
+</div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>My Storage Scanner v2.0 | Dibuat dengan <i class="fas fa-heart" style="color: #f5576c;"></i> untuk manajemen penyimpanan yang efisien</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                <i class="fas fa-shield-alt"></i> Selalu backup file penting sebelum membersihkan
+            </p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Only hover effects
+            const cards = document.querySelectorAll('.feature-card, .stat-item');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

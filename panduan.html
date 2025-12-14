@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan - My Storage Scanner v2.0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 30px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header h1 i {
+            color: #667eea;
+        }
+
+        .guide-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .step {
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #b0b7ff;
+        }
+
+        .step-content {
+            margin-left: 55px;
+        }
+
+        .step-content p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #c0c5ff;
+        }
+
+        .step-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            color: #c0c5ff;
+        }
+
+        .step-content li {
+            margin-bottom: 8px;
+        }
+
+        .note-box {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            color: #ffeaa7;
+        }
+
+        .warning-box {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            color: #ffabab;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #8a94b3;
+            font-size: 0.9rem;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .guide-content {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .step-title {
+                font-size: 1.3rem;
+            }
+            
+            .step-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="landing.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+            
+            <h1>
+                <i class="fas fa-book"></i>
+                Panduan Penggunaan
+            </h1>
+            <p style="color: #b0b7d6; margin-bottom: 30px;">Panduan singkat untuk menggunakan My Storage Scanner v2.0</p>
+        </div>
+        
+        <div class="guide-content">
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span> Pilih Mode Scan
+                </div>
+                <div class="step-content">
+                    <p>Setelah membuka aplikasi, pilih salah satu mode:</p>
+                    <ul>
+                        <li><strong>Scan Cepat:</strong> Untuk scan drive C: saja (rekomendasi pemula)</li>
+                        <li><strong>Scan Kustom:</strong> Pilih drive dan folder sendiri</li>
+                        <li><strong>Pencari Duplikat:</strong> Khusus mencari file identik</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span> Download & Jalankan Scanner
+                </div>
+                <div class="step-content">
+                    <p>Download scanner.exe dan jalankan di komputer Anda:</p>
+                    <ul>
+                        <li>Klik tombol "Download Scanner.exe ( Exe dijamin Aman dan bebas dari Virus)"</li>
+                        <li>Simpan file di folder yang mudah diakses</li>
+                        <li>Double-click scanner.exe untuk menjalankan</li>
+                        <li>Tunggu proses scan selesai (Scanned Succesfully akan muncul di tampilan exe nya)</li>
+                        <li>Maka akan muncul file Json baru bernama scan_result.Json yang berisi hasil scannya.</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i> Pastikan scan_config.json berada di folder yang sama dengan scanner.exe
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span> Analisis & Pembersihan
+                </div>
+                <div class="step-content">
+                    <p>Upload hasil scan ( scan_result.json) dan lakukan pembersihan:</p>
+                    <ul>
+                        <li>Upload file scan_result.json ke website</li>
+                        <li>Review file yang ditemukan scanner</li>
+                        <li>Centang file yang ingin dihapus</li>
+                        <li>Download dan jalankan cleaner.exe</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i> <strong>PERINGATAN:</strong> Selalu backup data penting sebelum menghapus file
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-rocket"></i> Mulai Sekarang
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p><i class="fas fa-shield-alt"></i> My Storage Scanner v2.0 - Aman & Terpercaya</p>
+        </div>
+    </div>
+</body>
+</html>
